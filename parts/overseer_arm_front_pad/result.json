@@ -1,0 +1,709 @@
+{
+ "name": "overseer_arm_front_pad",
+ "engine": "nox/topo",
+ "solid_ok": true,
+ "solid": {
+  "bodies_plain": 1,
+  "specks_plain": 0,
+  "bodies_eroded": 1,
+  "eroded_volumes_mm3": [
+   22428.1
+  ],
+  "necks": [],
+  "drawn_not_in_main": [],
+  "thin_walls": [],
+  "thin_allowed": [],
+  "acute_edges": 0,
+  "ok": true
+ },
+ "function_check": {
+  "skin_mm3": 4198.4,
+  "skin_missing_mm3": 0.13,
+  "in_cuts_mm3": -0.0,
+  "outside_env_mm3": 0.0,
+  "ok": true
+ },
+ "strength": {
+  "rows": [
+   {
+    "case": "flight 4 g, thrust 21 N, motor torque +0.5 N m",
+    "cls": "flight",
+    "inlayer": 0.113,
+    "across": 0.149,
+    "at": [
+     208.8,
+     132.8,
+     32.2
+    ]
+   },
+   {
+    "case": "flight 4 g, thrust 21 N, motor torque -0.5 N m",
+    "cls": "flight",
+    "inlayer": 0.085,
+    "across": 0.08,
+    "at": [
+     202.8,
+     144.8,
+     44.2
+    ]
+   },
+   {
+    "case": "landing 6 g",
+    "cls": "flight",
+    "inlayer": 0.01,
+    "across": 0.009,
+    "at": [
+     199.8,
+     131.3,
+     30.7
+    ]
+   },
+   {
+    "case": "HANDLING pad on the tubes: motor 96 g at 2 g, no spokes",
+    "cls": "flight",
+    "inlayer": 0.007,
+    "across": 0.007,
+    "at": [
+     199.8,
+     131.3,
+     30.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+1.00 +0.00 +0.00) on face 18-19-17 (spokes 1.1 -1, 1.3 -29 N)",
+    "cls": "crash",
+    "inlayer": 0.056,
+    "across": 0.06,
+    "at": [
+     201.3,
+     132.8,
+     32.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (-1.00 +0.00 +0.00) on face 13-14-5 (spokes 1.1 -110, 1.3 +207 N)",
+    "cls": "crash",
+    "inlayer": 0.148,
+    "across": 0.213,
+    "at": [
+     175.8,
+     135.8,
+     20.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +1.00 +0.00) on face 6-11-18 (spokes 1.1 +67, 1.3 -82 N)",
+    "cls": "crash",
+    "inlayer": 0.115,
+    "across": 0.109,
+    "at": [
+     175.8,
+     114.8,
+     36.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 -1.00 +0.00) on face 12-8-19 (spokes 1.1 -13, 1.3 +16 N)",
+    "cls": "crash",
+    "inlayer": 0.075,
+    "across": 0.077,
+    "at": [
+     168.3,
+     125.3,
+     36.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +0.00 +1.00) on face 7-9-10 (spokes 1.1 +68, 1.3 -226 N)",
+    "cls": "crash",
+    "inlayer": 0.15,
+    "across": 0.207,
+    "at": [
+     189.3,
+     134.3,
+     9.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +0.00 -1.00) on face 0-1-2-3-4-5 (spokes 1.1 -225, 1.3 +228 N)",
+    "cls": "crash",
+    "inlayer": 0.171,
+    "across": 0.238,
+    "at": [
+     175.8,
+     135.8,
+     20.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 +0.58 +0.58) on face 7-10-15 (spokes 1.1 +75, 1.3 -270 N)",
+    "cls": "crash",
+    "inlayer": 0.189,
+    "across": 0.264,
+    "at": [
+     189.3,
+     132.8,
+     15.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 +0.58 -0.58) on face 2-18-3 (spokes 1.1 -95, 1.3 +116 N)",
+    "cls": "crash",
+    "inlayer": 0.075,
+    "across": 0.12,
+    "at": [
+     175.8,
+     135.8,
+     20.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 -0.58 +0.58) on face 7-9-16 (spokes 1.1 +14, 1.3 -185 N)",
+    "cls": "crash",
+    "inlayer": 0.131,
+    "across": 0.165,
+    "at": [
+     189.3,
+     134.3,
+     9.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 -0.58 -0.58) on face 2-19-1 (spokes 1.1 -238, 1.3 +136 N)",
+    "cls": "crash",
+    "inlayer": 0.177,
+    "across": 0.259,
+    "at": [
+     169.8,
+     119.3,
+     6.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (-0.58 +0.58 +0.58) on face 13-14-10-9-20 (spokes 1.1 +117, 1.3 -54 N)",
+    "cls": "crash",
+    "inlayer": 0.093,
+    "across": 0.09,
+    "at": [
+     171.3,
+     119.3,
+     5.2
+    ]
+   },
+   {
+    "case": "cage landing 6 g on the base (spokes 1.1 -38, 1.3 +39 N)",
+    "cls": "flight",
+    "inlayer": 0.107,
+    "across": 0.148,
+    "at": [
+     175.8,
+     135.8,
+     20.2
+    ]
+   }
+  ],
+  "worst": 0.264,
+  "worst_case": "cage crash 35 g dir (+0.58 +0.58 +0.58) on face 7-10-15 (spokes 1.1 +75, 1.3 -270 N)",
+  "worst_at": [
+   189.3,
+   132.8,
+   15.7
+  ]
+ },
+ "mass_g": 41.41,
+ "watertight": true,
+ "export": {
+  "faces_in": 231480,
+  "degenerate": 0,
+  "folded": 0,
+  "caps_split": 0,
+  "caps_left": 0,
+  "dropped_shells": [
+   {
+    "faces": 12,
+    "mm3": 0.0,
+    "closed": true
+   }
+  ],
+  "n_dropped_shells": 1,
+  "bodies": 1,
+  "faces": 231468,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "watertight": true,
+  "simplified": true,
+  "first_pass": {
+   "degenerate": 328,
+   "folded": 14,
+   "caps_split": 8,
+   "caps_left": 2,
+   "watertight": true,
+   "faces": 341726
+  },
+  "volume_mm3": 32602.8,
+  "exact_mm3": 32604.3
+ },
+ "bodies": {
+  "bodies_raw": 9,
+  "dropped_specks_mm3": [
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.0,
+   0.01,
+   0.0,
+   0.01
+  ],
+  "cavities_mm3": [],
+  "bodies": 1
+ },
+ "volume_mm3": 32604.3,
+ "drawn_g": 18.2,
+ "export_cleanup": {
+  "pitch": 0.25,
+  "erode_mm": 0.9,
+  "core_limit_mm3": 10.0,
+  "specks_mm3": [
+   0.031,
+   0.031,
+   0.031,
+   0.031,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016,
+   0.016
+  ],
+  "slivers": [],
+  "kept_walls": [],
+  "removed_mm3": 0.25,
+  "specks": 18
+ },
+ "stl": "overseer_arm_front_pad.stl",
+ "view_stl": "overseer_arm_front_pad_view.stl",
+ "view_faces": 120000,
+ "preview": "preview.png",
+ "layout": {
+  "settings": {
+   "min_member_mm": 6.25,
+   "eta": [
+    0.75,
+    0.5,
+    0.25
+   ],
+   "betas": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+   ],
+   "penal": 3.0,
+   "emin": 1e-06,
+   "pmean": 6.0,
+   "tie_weight": 0.5,
+   "tie_moments": true,
+   "tie_min_cells": 4,
+   "move": 0.1,
+   "min_stage": 10,
+   "max_stage": 35,
+   "grey_stop": 0.02,
+   "vol_gain": 0.3,
+   "geometric": false,
+   "geo_margin": 0.05,
+   "geo_beta": 16.0,
+   "geo_eps": 0.0,
+   "erosion": "masked",
+   "gate_ties": true,
+   "gate_thin_mm": 2.0,
+   "case_norm": "solid",
+   "held_ties": true,
+   "gate_member": true,
+   "collar_mm": 0.0,
+   "finish": "organic",
+   "skin_mm": 2.5,
+   "fillet_mm": 2.5,
+   "skin_round_mm": 1.0,
+   "reach_check": "raise",
+   "audit": "raise",
+   "auto_sym": true,
+   "near_sym": false,
+   "backend": "auto",
+   "early_beta": 4,
+   "early_k": 3.0,
+   "mg_tol": 1e-05,
+   "time_limit_s": 16200.0,
+   "checkpoint_every": 10
+  },
+  "R_mm": 6.44256687412536,
+  "R_cells": 4.29504458275024,
+  "calibration": {
+   "rod": 0.9701102250255644,
+   "plate": 0.8809289894691206,
+   "erode": 0.26588526507976606,
+   "dilate": 0.2668852650798993,
+   "rod_input": 1.2608727148268373,
+   "plate_input": 0.8849130530977847
+  },
+  "volfrac": 0.14887184082646676,
+  "nd": 45753,
+  "sym_axes": [],
+  "n_real": 16,
+  "n_ties": 42,
+  "backend": "direct",
+  "iterations": 84,
+  "stopped": "max_stage"
+ },
+ "grid": {
+  "name": "overseer_arm_front_pad",
+  "h": 1.5,
+  "shape": [
+   64,
+   56,
+   48
+  ],
+  "origin": [
+   142.0808,
+   93.0151,
+   -22.5939
+  ],
+  "cells": 172032,
+  "design": 44277,
+  "drawn": 4265,
+  "cases": [
+   "flight 4 g, thrust 21 N, motor torque +0.5 N m",
+   "flight 4 g, thrust 21 N, motor torque -0.5 N m",
+   "landing 6 g",
+   "HANDLING pad on the tubes: motor 96 g at 2 g, no spokes",
+   "cage crash 35 g dir (+1.00 +0.00 +0.00) on face 18-19-17 (spokes 1.1 -1, 1.3 -29 N)",
+   "cage crash 35 g dir (-1.00 +0.00 +0.00) on face 13-14-5 (spokes 1.1 -110, 1.3 +207 N)",
+   "cage crash 35 g dir (+0.00 +1.00 +0.00) on face 6-11-18 (spokes 1.1 +67, 1.3 -82 N)",
+   "cage crash 35 g dir (+0.00 -1.00 +0.00) on face 12-8-19 (spokes 1.1 -13, 1.3 +16 N)",
+   "cage crash 35 g dir (+0.00 +0.00 +1.00) on face 7-9-10 (spokes 1.1 +68, 1.3 -226 N)",
+   "cage crash 35 g dir (+0.00 +0.00 -1.00) on face 0-1-2-3-4-5 (spokes 1.1 -225, 1.3 +228 N)",
+   "cage crash 35 g dir (+0.58 +0.58 +0.58) on face 7-10-15 (spokes 1.1 +75, 1.3 -270 N)",
+   "cage crash 35 g dir (+0.58 +0.58 -0.58) on face 2-18-3 (spokes 1.1 -95, 1.3 +116 N)",
+   "cage crash 35 g dir (+0.58 -0.58 +0.58) on face 7-9-16 (spokes 1.1 +14, 1.3 -185 N)",
+   "cage crash 35 g dir (+0.58 -0.58 -0.58) on face 2-19-1 (spokes 1.1 -238, 1.3 +136 N)",
+   "cage crash 35 g dir (-0.58 +0.58 +0.58) on face 13-14-10-9-20 (spokes 1.1 +117, 1.3 -54 N)",
+   "cage landing 6 g on the base (spokes 1.1 -38, 1.3 +39 N)"
+  ],
+  "supports": [
+   "tubes",
+   "tubes+spokes"
+  ]
+ },
+ "build_s": 117.4,
+ "layout_s": 2384,
+ "peak_gb": 4.03024,
+ "gen_cm3": 18.0,
+ "h": 1.5,
+ "audit": {
+  "drawn_share": 0.088,
+  "load_room": [],
+  "bodies": [
+   {
+    "id": 1,
+    "cells": 405,
+    "inscribed_mm": 2.7,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": false,
+    "room": 0.75,
+    "room_depth_mm": 61.5,
+    "at": [
+     163.8,
+     113.0,
+     14.1
+    ],
+    "core_mm": 2.7
+   },
+   {
+    "id": 2,
+    "cells": 390,
+    "inscribed_mm": 2.7,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": false,
+    "room": 0.71,
+    "room_depth_mm": 58.5,
+    "at": [
+     164.0,
+     113.0,
+     36.1
+    ],
+    "core_mm": 2.7
+   },
+   {
+    "id": 3,
+    "cells": 168,
+    "inscribed_mm": 2.7,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": true,
+    "room": 0.8,
+    "room_depth_mm": 54.0,
+    "at": [
+     177.1,
+     124.5,
+     -4.4
+    ],
+    "core_mm": 2.7
+   },
+   {
+    "id": 4,
+    "cells": 3135,
+    "inscribed_mm": 7.0,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.89,
+    "room_depth_mm": 57.0,
+    "at": [
+     205.9,
+     139.5,
+     34.1
+    ],
+    "core_mm": 5.2,
+    "share_of_drawn": 0.74
+   },
+   {
+    "id": 5,
+    "cells": 167,
+    "inscribed_mm": 2.7,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": true,
+    "room": 0.77,
+    "room_depth_mm": 43.5,
+    "at": [
+     201.9,
+     156.2,
+     2.9
+    ],
+    "core_mm": 2.7
+   }
+  ],
+  "envelope_waste": 0.0,
+  "plate": {
+   "L_mm": 89.6,
+   "W_mm": 58.2,
+   "H_mm": 63.0,
+   "fits": true
+  },
+  "drawn_thin": [],
+  "drawn_walls": [],
+  "cases": 16,
+  "supports": 2,
+  "fails": []
+ },
+ "early": {
+  "rows": [
+   {
+    "case": "flight 4 g, thrust 21 N, motor torque +0.5 N m",
+    "cls": "flight",
+    "inlayer": 0.113,
+    "across": 0.141,
+    "at": [
+     208.8,
+     132.8,
+     32.2
+    ]
+   },
+   {
+    "case": "flight 4 g, thrust 21 N, motor torque -0.5 N m",
+    "cls": "flight",
+    "inlayer": 0.088,
+    "across": 0.089,
+    "at": [
+     189.3,
+     143.3,
+     44.2
+    ]
+   },
+   {
+    "case": "landing 6 g",
+    "cls": "flight",
+    "inlayer": 0.01,
+    "across": 0.009,
+    "at": [
+     199.8,
+     131.3,
+     30.7
+    ]
+   },
+   {
+    "case": "HANDLING pad on the tubes: motor 96 g at 2 g, no spokes",
+    "cls": "flight",
+    "inlayer": 0.007,
+    "across": 0.007,
+    "at": [
+     199.8,
+     131.3,
+     30.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+1.00 +0.00 +0.00) on face 18-19-17 (spokes 1.1 -1, 1.3 -29 N)",
+    "cls": "crash",
+    "inlayer": 0.059,
+    "across": 0.055,
+    "at": [
+     208.8,
+     134.3,
+     38.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (-1.00 +0.00 +0.00) on face 13-14-5 (spokes 1.1 -110, 1.3 +207 N)",
+    "cls": "crash",
+    "inlayer": 0.146,
+    "across": 0.214,
+    "at": [
+     184.8,
+     144.8,
+     14.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +1.00 +0.00) on face 6-11-18 (spokes 1.1 +67, 1.3 -82 N)",
+    "cls": "crash",
+    "inlayer": 0.101,
+    "across": 0.121,
+    "at": [
+     187.8,
+     132.8,
+     12.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 -1.00 +0.00) on face 12-8-19 (spokes 1.1 -13, 1.3 +16 N)",
+    "cls": "crash",
+    "inlayer": 0.068,
+    "across": 0.062,
+    "at": [
+     174.3,
+     114.8,
+     33.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +0.00 +1.00) on face 7-9-10 (spokes 1.1 +68, 1.3 -226 N)",
+    "cls": "crash",
+    "inlayer": 0.149,
+    "across": 0.225,
+    "at": [
+     187.8,
+     132.8,
+     12.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.00 +0.00 -1.00) on face 0-1-2-3-4-5 (spokes 1.1 -225, 1.3 +228 N)",
+    "cls": "crash",
+    "inlayer": 0.176,
+    "across": 0.231,
+    "at": [
+     184.8,
+     144.8,
+     14.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 +0.58 +0.58) on face 7-10-15 (spokes 1.1 +75, 1.3 -270 N)",
+    "cls": "crash",
+    "inlayer": 0.182,
+    "across": 0.308,
+    "at": [
+     187.8,
+     132.8,
+     12.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 +0.58 -0.58) on face 2-18-3 (spokes 1.1 -95, 1.3 +116 N)",
+    "cls": "crash",
+    "inlayer": 0.078,
+    "across": 0.114,
+    "at": [
+     184.8,
+     144.8,
+     14.2
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 -0.58 +0.58) on face 7-9-16 (spokes 1.1 +14, 1.3 -185 N)",
+    "cls": "crash",
+    "inlayer": 0.129,
+    "across": 0.177,
+    "at": [
+     187.8,
+     132.8,
+     12.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (+0.58 -0.58 -0.58) on face 2-19-1 (spokes 1.1 -238, 1.3 +136 N)",
+    "cls": "crash",
+    "inlayer": 0.184,
+    "across": 0.245,
+    "at": [
+     169.8,
+     119.3,
+     6.7
+    ]
+   },
+   {
+    "case": "cage crash 35 g dir (-0.58 +0.58 +0.58) on face 13-14-10-9-20 (spokes 1.1 +117, 1.3 -54 N)",
+    "cls": "crash",
+    "inlayer": 0.095,
+    "across": 0.102,
+    "at": [
+     187.8,
+     132.8,
+     42.7
+    ]
+   },
+   {
+    "case": "cage landing 6 g on the base (spokes 1.1 -38, 1.3 +39 N)",
+    "cls": "flight",
+    "inlayer": 0.109,
+    "across": 0.144,
+    "at": [
+     184.8,
+     144.8,
+     14.2
+    ]
+   }
+  ],
+  "worst": 0.308,
+  "worst_case": "cage crash 35 g dir (+0.58 +0.58 +0.58) on face 7-10-15 (spokes 1.1 +75, 1.3 -270 N)",
+  "worst_at": [
+   187.8,
+   132.8,
+   12.7
+  ],
+  "beta": 4.0,
+  "iteration": 26,
+  "max_worst": 0.3,
+  "k": 3.0
+ },
+ "baseline": null,
+ "total_s": 2502,
+ "part_sha": "72fa2a674b4d",
+ "lib_sha": "38b75dbc5f67",
+ "setup_sha": "d054fc301a328de2",
+ "max_worst": 0.3,
+ "strength_ok": true
+}

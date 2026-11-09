@@ -1,0 +1,266 @@
+# Runs the topology engine for every part whose part.py changed in the push, one runner per part, all at once.
+# A run that does not finish inside the runner's 6 h cap saves its checkpoint and re-launches itself, so no run is
+# ever lost. Results are committed back to main by the last job. Nothing here involves Claude.
+name: parts
+
+on:
+  push:
+    branches: [main]
+    paths: ['parts/*/part.py', 'parts/*/inputs/**']
+  workflow_dispatch:
+    inputs:
+      parts:
+        description: 'part names, space separated (empty = every part whose result is missing or stale)'
+        required: false
+        default: ''
+      attempt:
+        description: 'resume attempt number (set by the workflow itself)'
+        required: false
+        default: '1'
+
+permissions:
+  contents: write
+  actions: write
+
+env:
+  ENGINE_LIMIT_S: 16200      # 4.5 h: the engine checks the limit between iterations, so leave room for a slow one
+  JOB_LIMIT_MIN: 330         # 5.5 h: runner hard cap is 6 h
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    outputs:
+      parts: ${{ steps.p.outputs.parts }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - id: p
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.parts }}" ]; then list="${{ inputs.parts }}"
+            else list=$(python3 tools/stale_parts.py); fi
+            # a push made with Spark's own credentials already started these runs: skip every part that another run
+            # of this workflow is still working on (the dispatch is then only for the ones it missed). A run whose
+            # own find job is still going has no matrix yet (28 Oct: the dispatch 9 s after the push doubled 5 parts),
+            # so first wait for every other run's find to finish.
+            others() { gh run list --workflow parts.yml --limit 30 --json databaseId,status \
+                       --jq '.[] | select(.status == "in_progress" or .status == "queued" or .status == "waiting" or .status == "pending" or .status == "requested") | .databaseId' \
+                       | grep -v "^${{ github.run_id }}$" || true; }    # no other run: grep -v returns 1, which under pipefail killed the job (29 Oct)
+            for i in $(seq 1 24); do
+              pending=$(for id in $(others); do gh run view "$id" --json jobs --jq 'if (.jobs | length) == 0 then "none yet" else (.jobs[] | select(.name == "find" and .status != "completed") | .name) end'; done)
+              [ -z "$pending" ] && break
+              echo "another run is still finding its parts, waiting"; sleep 10
+            done
+            # a part running elsewhere is skipped only when that run works on the same setup files (part.py, the libs, the
+            # systems data); on an older setup it stops itself (the run job's watchdog, below) and the new one runs here
+            # (Spark 29 Oct: an old design never keeps running once a new one supersedes it)
+            DESIGN_FILES="parts/*.py systems/*.json :!systems/runtimes.json"
+            for id in $(others); do
+              sha=$(gh run view "$id" --json headSha --jq .headSha)
+              for b in $(gh run view "$id" --json jobs --jq '.jobs[] | select(.status != "completed") | .name' | sed -n 's/^run (\(.*\))$/\1/p'); do
+                case " $list " in *" $b "*) ;; *) continue;; esac
+                if git cat-file -e "$sha" 2>/dev/null && git diff --quiet "$sha" HEAD -- "parts/$b/part.py" $DESIGN_FILES; then
+                  list=$(echo " $list " | sed "s/ $b / /g"); echo "$b: already running on this same setup (run $id), skipped"
+                else
+                  echo "$b: running on an older setup in run $id; that run stops itself, the new one starts here"
+                fi
+              done
+            done
+          else
+            # every commit of the push, not only the last one; deleted parts excluded
+            list=$(git diff --name-only --diff-filter=AM ${{ github.event.before }} ${{ github.sha }} -- 'parts/*/part.py' 'parts/*/inputs/*' \
+                   | cut -d/ -f2 | sort -u | tr '\n' ' ')
+          fi
+          # xargs -r: an empty list gives [] and no run job (29 Oct: a dispatch for a part already running elsewhere ran a job with no part and went red)
+          echo "parts=$(echo $list | xargs -r -n1 | jq -R . | jq -s -c .)" >> "$GITHUB_OUTPUT"
+          echo "will run: $list"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  run:
+    needs: find
+    if: needs.find.outputs.parts != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        part: ${{ fromJson(needs.find.outputs.parts) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12', cache: pip }
+      - run: pip install -r requirements.txt
+
+      # a checkpoint from a previous attempt of this same part.py and libs (if any) lets the run continue where it stopped; a lib
+      # change (parts/*.py) is a new setup, its old checkpoint would not fit (28 Oct, the rear arm's mask mismatch; 29 Oct: a
+      # fallback to the older key resumed nine nodes from checkpoints of the previous socket layout). The engine also checks
+      # the checkpoint's own setup hash (topo/run.py) and ignores one from another setup.
+      - name: restore checkpoint
+        uses: actions/cache/restore@v4
+        with:
+          path: parts/${{ matrix.part }}/ck*.npz
+          key: ck-${{ matrix.part }}-${{ hashFiles(format('parts/{0}/part.py', matrix.part), 'parts/*.py', 'topo/*.py') }}
+
+      # the design hash (topo/run.py design_hash): the setup's masks, supports, loads and SPEC. A watchdog fetches main every
+      # 3 min while the engine runs; when a design file changed there it builds the setup main has now in a worktree and, if its
+      # hash differs or the part is gone, stops the engine: no result, nothing committed, the run of the new design takes over
+      # (Spark 29 Oct: a superseded part never keeps running; "if something is affected it needs to be redone").
+      - name: optimise
+        id: opt
+        shell: bash
+        run: |
+          set +e
+          P=parts/${{ matrix.part }}
+          rm -f $P/result.json $P/part.stl $P/preview.png      # the checked-out result is not this run's: a crashed run must upload nothing (run 67, 30 Oct: node 21 died at setup and its job uploaded the tree's old result.json, which the commit job then put over a newer re-gated one)
+          DESIGN=$(python -m topo.run $P --design-hash 2>/dev/null | tail -1); echo "design $DESIGN"
+          ( while sleep 180; do
+              git fetch -q origin main 2>/dev/null || continue
+              if git diff --quiet HEAD origin/main -- "$P/part.py" 'parts/*.py' 'systems/*.json' ':!systems/runtimes.json'; then continue; fi
+              rm -rf /tmp/mainwt; git worktree add -q --detach /tmp/mainwt origin/main 2>/dev/null || continue
+              if [ -f /tmp/mainwt/$P/part.py ]; then new=$(cd /tmp/mainwt && python -m topo.run $P --design-hash 2>/dev/null | tail -1); else new="gone"; fi
+              if [ -n "$new" ] && [ "$new" != "$DESIGN" ]; then
+                echo "::notice::${{ matrix.part }}: superseded on main $(git rev-parse --short origin/main) (design $new, was $DESIGN): stopping, the new design runs instead"
+                touch $P/SUPERSEDED; pkill -f "topo.run $P " ; break
+              fi
+            done ) &
+          WD=$!
+          python -m topo.run $P --time-limit $ENGINE_LIMIT_S
+          rc=$?; kill $WD 2>/dev/null
+          if [ -f $P/SUPERSEDED ]; then rm -f $P/result.json; echo "rc=superseded" >> "$GITHUB_OUTPUT"; echo "superseded: no result"; exit 0; fi
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          exit $rc                                      # a crash shows red (29 Oct: three arm runs "succeeded" in 2 minutes with no result)
+
+      # always save the checkpoint (even on timeout or failure), so the next attempt resumes
+      - name: save checkpoint
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: parts/${{ matrix.part }}/ck*.npz
+          key: ck-${{ matrix.part }}-${{ hashFiles(format('parts/{0}/part.py', matrix.part), 'parts/*.py', 'topo/*.py') }}-${{ github.run_id }}
+
+      # a cut-off or crashed run leaves only its checkpoint: a mesh written before the result (28 Oct: the rear arm's cap-time
+      # mesh, in grid coordinates at the origin, was committed and placed on the page as the part)
+      - name: no result, no files
+        if: always()
+        run: |
+          if [ ! -f parts/${{ matrix.part }}/result.json ]; then rm -f parts/${{ matrix.part }}/part.stl parts/${{ matrix.part }}/preview.png; fi
+      - name: results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.part }}
+          path: |
+            parts/${{ matrix.part }}/result.json
+            parts/${{ matrix.part }}/part.stl
+            parts/${{ matrix.part }}/preview.png
+            parts/${{ matrix.part }}/log.txt
+          if-no-files-found: ignore
+
+      # a finished part lands on main now: the commit job below waits for the run's slowest part (29 Oct: the base's 8 h held
+      # the hub deck's and the front root's results for the whole night). Same stale rule as the commit job; it never fails the job.
+      - name: commit this part's result now
+        if: always()
+        continue-on-error: true
+        shell: bash
+        run: |
+          p=${{ matrix.part }}
+          [ -f parts/$p/result.json ] || exit 0
+          # a refused or failed run can write result.json with no mesh (9 Nov: the front pad's cp of a missing part.stl failed this
+          # step and its FAIL result was lost with the commit job): copy what exists
+          mkdir -p _mine && for f in result.json part.stl preview.png; do if [ -f parts/$p/$f ]; then cp parts/$p/$f _mine/; fi; done
+          git config user.name nox-ci
+          git config user.email ci@users.noreply.github.com
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git checkout -q -f -B main origin/main
+            [ -f parts/$p/part.py ] || { echo "$p: no part.py on main any more, result not placed"; break; }
+            python3 - "$p" <<'PY' || break
+          import json, os, sys; sys.path.insert(0, "tools"); from part_sha import stale
+          p = sys.argv[1]; py = f"parts/{p}/part.py"; old = f"parts/{p}/result.json"
+          if os.path.exists(old) and stale(py, json.load(open("_mine/result.json"))) and not stale(py, json.load(open(old))):
+              print(f"{p}: the run's result is older than the one on main, kept main's"); sys.exit(1)
+          PY
+            cp _mine/* parts/$p/
+            python3 tools/predict.py --update          # this run's timing in the same commit (one commit per result, not two)
+            git add parts/$p systems/runtimes.json
+            git diff --cached --quiet && { echo "$p: already on main"; break; }
+            git commit -q -m "results: [$p]" && git push -q origin main && { gh workflow run site.yml; break; }
+            echo "push raced ($i), retrying"; sleep 5
+          done
+          cp _mine/* parts/$p/ 2>/dev/null; rm -rf _mine
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # the job hit its time cap (step cancelled) and left no result: launch this workflow again for this part only.
+      # It resumes from the checkpoint. A crash (non-zero exit, step not cancelled) is NOT relaunched: it needs a fix.
+      - name: relaunch if cut off
+        if: always() && steps.opt.outcome == 'cancelled'
+        shell: bash
+        run: |
+          n=$(( ${{ inputs.attempt || 1 }} + 1 ))
+          if [ -f parts/${{ matrix.part }}/result.json ]; then exit 0; fi
+          if [ "$n" -gt 4 ]; then echo "::error::${{ matrix.part }}: 4 attempts (22 h) without finishing; coarsen h or cut cases"; exit 1; fi
+          echo "::warning::${{ matrix.part }} cut off at the time cap; relaunching attempt $n from checkpoint"
+          gh workflow run parts.yml -f parts="${{ matrix.part }}" -f attempt="$n"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+  commit:
+    needs: [find, run]
+    if: always() && needs.find.outputs.parts != '[]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      # the stale check and the setup.json refresh build setups (topo, numpy): without the engine installed every cache miss
+      # crashed this job (9 Nov, run 42655485891) and --refresh failed quietly for every part
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12', cache: pip }
+      - run: pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          path: _results
+          pattern: result-*
+      - name: place results
+        shell: bash
+        run: |
+          # a run that ends late must not put an older result over a newer one (29 Oct: the 07:41 node batch, ending at 12:22,
+          # put the tip's and root's results from 07:41 back over the ones a later run had committed at 10:52): a result that is
+          # stale against the tree never replaces one that is current
+          python3 - <<'PY'
+          import glob, json, os, shutil, sys
+          sys.path.insert(0, "tools"); from part_sha import stale
+          for d in sorted(glob.glob("_results/result-*")):
+              p = os.path.basename(d)[len("result-"):]; dst = os.path.join("parts", p); py = os.path.join(dst, "part.py")
+              new = os.path.join(d, "result.json"); old = os.path.join(dst, "result.json")
+              if not os.path.exists(py):
+                  print(f"{p}: no part.py in the tree any more (deleted while it ran), result dropped"); continue
+              if os.path.exists(new) and os.path.exists(old):
+                  if stale(py, json.load(open(new))) and not stale(py, json.load(open(old))):
+                      print(f"{p}: the run's result is older than the one in the tree, kept the tree's"); continue
+              os.makedirs(dst, exist_ok=True)
+              for f in ("result.json", "part.stl", "preview.png"):
+                  if os.path.exists(os.path.join(d, f)): shutil.copyfile(os.path.join(d, f), os.path.join(dst, f))
+          PY
+          rm -rf _results
+          python3 tools/predict.py --update
+          # the setup.json caches of this run's parts (staleness by setup, tools/part_sha.py); the page builder recomputes any other miss
+          python3 tools/part_sha.py --refresh $(echo '${{ needs.find.outputs.parts }}' | jq -r '.[]')
+      - name: commit and push (retry on race)
+        shell: bash
+        run: |
+          git config user.name nox-ci
+          git config user.email ci@users.noreply.github.com
+          git add parts systems/runtimes.json
+          git diff --cached --quiet && { echo "nothing to commit"; exit 0; }
+          git commit -m "results: ${{ needs.find.outputs.parts }}"
+          for i in 1 2 3 4 5; do
+            git push && break
+            git pull --rebase origin main || exit 1
+          done
+          # a push made with the workflow token does not trigger other workflows, so start the site build by hand
+          gh workflow run site.yml
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,0 +1,938 @@
+{
+ "name": "hub_deck",
+ "engine": "nox/topo",
+ "solid_ok": true,
+ "solid": {
+  "bodies_plain": 1,
+  "specks_plain": 0,
+  "bodies_eroded": 1,
+  "eroded_volumes_mm3": [
+   35209.5
+  ],
+  "necks": [],
+  "drawn_not_in_main": [],
+  "thin_walls": [],
+  "thin_allowed": [],
+  "acute_edges": 0,
+  "ok": true
+ },
+ "function_check": {
+  "skin_mm3": 7870.9,
+  "skin_missing_mm3": 0.0,
+  "in_cuts_mm3": 0.0,
+  "outside_env_mm3": 0.0,
+  "ok": true
+ },
+ "strength": {
+  "rows": [
+   {
+    "case": "crash 0 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.308,
+    "across": 0.413,
+    "at": [
+     99.7,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "crash 1 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.043,
+    "across": 0.065,
+    "at": [
+     99.7,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "crash 2 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.011,
+    "across": 0.007,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   },
+   {
+    "case": "crash 3 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.011,
+    "across": 0.007,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   },
+   {
+    "case": "crash 4 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.136,
+    "across": 0.139,
+    "at": [
+     94.5,
+     17.6,
+     9.5
+    ]
+   },
+   {
+    "case": "crash 5 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.025,
+    "across": 0.033,
+    "at": [
+     99.7,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "crash 6 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.1,
+    "across": 0.103,
+    "at": [
+     94.5,
+     17.6,
+     9.5
+    ]
+   },
+   {
+    "case": "crash 7 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.032,
+    "across": 0.034,
+    "at": [
+     82.8,
+     4.5,
+     13.4
+    ]
+   },
+   {
+    "case": "crash 8 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.102,
+    "across": 0.105,
+    "at": [
+     94.5,
+     17.6,
+     9.5
+    ]
+   },
+   {
+    "case": "crash 9 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.031,
+    "across": 0.034,
+    "at": [
+     82.8,
+     4.5,
+     13.4
+    ]
+   },
+   {
+    "case": "crash 10 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.043,
+    "across": 0.055,
+    "at": [
+     99.7,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "crash 11 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.015,
+    "across": 0.014,
+    "at": [
+     55.5,
+     21.4,
+     1.7
+    ]
+   },
+   {
+    "case": "crash 12 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.022,
+    "across": 0.013,
+    "at": [
+     55.5,
+     21.4,
+     1.7
+    ]
+   },
+   {
+    "case": "crash 13 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.014,
+    "across": 0.012,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   },
+   {
+    "case": "flight 4 g",
+    "cls": "flight",
+    "inlayer": 0.01,
+    "across": 0.007,
+    "at": [
+     55.5,
+     21.4,
+     1.7
+    ]
+   },
+   {
+    "case": "flight 2 g x",
+    "cls": "flight",
+    "inlayer": 0.002,
+    "across": 0.002,
+    "at": [
+     56.8,
+     24.1,
+     5.6
+    ]
+   },
+   {
+    "case": "flight 2 g y",
+    "cls": "flight",
+    "inlayer": 0.004,
+    "across": 0.002,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   },
+   {
+    "case": "landing 6 g",
+    "cls": "flight",
+    "inlayer": 0.015,
+    "across": 0.022,
+    "at": [
+     99.7,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "frame core tie front.1 axial 572 N (pull-out)",
+    "cls": "crash",
+    "inlayer": 0.137,
+    "across": 0.245,
+    "at": [
+     89.3,
+     14.9,
+     5.6
+    ]
+   },
+   {
+    "case": "frame core tie front.2 axial 425 N (pull-out)",
+    "cls": "crash",
+    "inlayer": 0.306,
+    "across": 0.338,
+    "at": [
+     82.8,
+     4.5,
+     13.4
+    ]
+   },
+   {
+    "case": "USB plug 20 N into the Pi's aft ports",
+    "cls": "misuse",
+    "inlayer": 0.017,
+    "across": 0.01,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   },
+   {
+    "case": "press 50 N on the Pi (assembly)",
+    "cls": "misuse",
+    "inlayer": 0.091,
+    "across": 0.054,
+    "at": [
+     55.5,
+     -24.1,
+     1.7
+    ]
+   }
+  ],
+  "worst": 0.413,
+  "worst_case": "crash 0 (35 g) + frame ties",
+  "worst_at": [
+   99.7,
+   16.2,
+   8.2
+  ]
+ },
+ "mass_g": 60.88,
+ "watertight": true,
+ "export": {
+  "faces_in": 157682,
+  "degenerate": 0,
+  "folded": 0,
+  "caps_split": 0,
+  "caps_left": 2,
+  "dropped_shells": [],
+  "n_dropped_shells": 0,
+  "bodies": 1,
+  "faces": 157682,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "watertight": true,
+  "simplified": true,
+  "first_pass": {
+   "degenerate": 182,
+   "folded": 18,
+   "caps_split": 24,
+   "caps_left": 4,
+   "watertight": true,
+   "faces": 338790
+  },
+  "volume_mm3": 49491.9,
+  "exact_mm3": 49492.5
+ },
+ "bodies": {
+  "bodies_raw": 3,
+  "dropped_specks_mm3": [
+   0.0,
+   0.0
+  ],
+  "cavities_mm3": [],
+  "bodies": 1
+ },
+ "volume_mm3": 49492.5,
+ "drawn_g": 20.05,
+ "export_cleanup": {
+  "pitch": 0.25,
+  "erode_mm": 0.9,
+  "core_limit_mm3": 10.0,
+  "specks_mm3": [
+   0.047,
+   0.047
+  ],
+  "slivers": [],
+  "kept_walls": [],
+  "removed_mm3": 0.04,
+  "specks": 2
+ },
+ "stl": "hub_deck.stl",
+ "view_stl": "hub_deck_view.stl",
+ "view_faces": 120000,
+ "preview": "preview.png",
+ "layout": {
+  "settings": {
+   "min_member_mm": 6.25,
+   "eta": [
+    0.75,
+    0.5,
+    0.25
+   ],
+   "betas": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+   ],
+   "penal": 3.0,
+   "emin": 1e-06,
+   "pmean": 6.0,
+   "tie_weight": 0.5,
+   "tie_moments": true,
+   "tie_min_cells": 4,
+   "move": 0.1,
+   "min_stage": 10,
+   "max_stage": 35,
+   "grey_stop": 0.02,
+   "vol_gain": 0.3,
+   "geometric": false,
+   "geo_margin": 0.05,
+   "geo_beta": 16.0,
+   "geo_eps": 0.0,
+   "erosion": "masked",
+   "gate_ties": true,
+   "gate_thin_mm": 2.0,
+   "case_norm": "solid",
+   "held_ties": true,
+   "gate_member": true,
+   "collar_mm": 0.0,
+   "finish": "organic",
+   "skin_mm": 2.5,
+   "fillet_mm": 2.5,
+   "skin_round_mm": 1.0,
+   "reach_check": "raise",
+   "audit": "raise",
+   "auto_sym": true,
+   "near_sym": false,
+   "backend": "auto",
+   "early_beta": 4,
+   "early_k": 3.0,
+   "mg_tol": 1e-05,
+   "time_limit_s": 16200.0,
+   "checkpoint_every": 10
+  },
+  "R_mm": 6.44256687412536,
+  "R_cells": 4.955820672404123,
+  "calibration": {
+   "rod": 0.9701102250255644,
+   "plate": 0.8809289894691206,
+   "erode": 0.26588526507976606,
+   "dilate": 0.2668852650798993,
+   "rod_input": 1.2608727148268373,
+   "plate_input": 0.8849130530977847
+  },
+  "volfrac": 0.3032721850051196,
+  "nd": 49666,
+  "sym_axes": [],
+  "n_real": 22,
+  "n_ties": 84,
+  "backend": "direct",
+  "iterations": 90,
+  "stopped": "grey"
+ },
+ "grid": {
+  "name": "overseer_hub_deck",
+  "h": 1.3,
+  "shape": [
+   144,
+   72,
+   24
+  ],
+  "origin": [
+   -79.0232,
+   -46.8,
+   -1.5849
+  ],
+  "cells": 248832,
+  "design": 49169,
+  "drawn": 7445,
+  "cases": [
+   "crash 0 (35 g) + frame ties",
+   "crash 1 (35 g) + frame ties",
+   "crash 2 (35 g) + frame ties",
+   "crash 3 (35 g) + frame ties",
+   "crash 4 (35 g) + frame ties",
+   "crash 5 (35 g) + frame ties",
+   "crash 6 (35 g) + frame ties",
+   "crash 7 (35 g) + frame ties",
+   "crash 8 (35 g) + frame ties",
+   "crash 9 (35 g) + frame ties",
+   "crash 10 (35 g) + frame ties",
+   "crash 11 (35 g)",
+   "crash 12 (35 g)",
+   "crash 13 (35 g)",
+   "flight 4 g",
+   "flight 2 g x",
+   "flight 2 g y",
+   "landing 6 g",
+   "frame core tie front.1 axial 572 N (pull-out)",
+   "frame core tie front.2 axial 425 N (pull-out)",
+   "USB plug 20 N into the Pi's aft ports",
+   "press 50 N on the Pi (assembly)"
+  ],
+  "supports": [
+   "default"
+  ]
+ },
+ "build_s": 281.8,
+ "layout_s": 2019,
+ "peak_gb": 5.163156,
+ "gen_cm3": 32.0,
+ "h": 1.3,
+ "audit": {
+  "solid_ok": [],
+  "drawn_share": 0.132,
+  "load_room": [],
+  "bodies": [
+   {
+    "id": 1,
+    "cells": 752,
+    "inscribed_mm": 5.1,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": true,
+    "room": 0.97,
+    "room_depth_mm": 79.3,
+    "at": [
+     -26.8,
+     -30.9,
+     3.1
+    ],
+    "core_mm": 3.9,
+    "free_cells": 752
+   },
+   {
+    "id": 2,
+    "cells": 752,
+    "inscribed_mm": 5.1,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": true,
+    "room": 0.97,
+    "room_depth_mm": 79.3,
+    "at": [
+     -26.8,
+     30.9,
+     3.1
+    ],
+    "core_mm": 3.9,
+    "free_cells": 752
+   },
+   {
+    "id": 3,
+    "cells": 342,
+    "inscribed_mm": 5.1,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.96,
+    "room_depth_mm": 104.0,
+    "at": [
+     28.1,
+     -24.3,
+     3.2
+    ],
+    "core_mm": 3.9,
+    "free_cells": 342
+   },
+   {
+    "id": 4,
+    "cells": 342,
+    "inscribed_mm": 5.1,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.94,
+    "room_depth_mm": 104.0,
+    "at": [
+     28.1,
+     24.3,
+     3.2
+    ],
+    "core_mm": 3.9,
+    "free_cells": 342
+   },
+   {
+    "id": 5,
+    "cells": 585,
+    "inscribed_mm": 6.5,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.86,
+    "room_depth_mm": 114.4,
+    "at": [
+     40.0,
+     -8.2,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 585
+   },
+   {
+    "id": 6,
+    "cells": 830,
+    "inscribed_mm": 6.5,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.77,
+    "room_depth_mm": 126.1,
+    "at": [
+     45.1,
+     13.0,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 830
+   },
+   {
+    "id": 7,
+    "cells": 415,
+    "inscribed_mm": 4.5,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": false,
+    "room": 0.64,
+    "room_depth_mm": 46.8,
+    "at": [
+     65.0,
+     -22.4,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 415
+   },
+   {
+    "id": 8,
+    "cells": 415,
+    "inscribed_mm": 4.5,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": false,
+    "room": 0.73,
+    "room_depth_mm": 46.8,
+    "at": [
+     65.0,
+     22.4,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 415
+   },
+   {
+    "id": 9,
+    "cells": 600,
+    "inscribed_mm": 6.5,
+    "touches_cut": true,
+    "touches_support": false,
+    "loaded": true,
+    "room": 0.66,
+    "room_depth_mm": 150.8,
+    "at": [
+     76.2,
+     -8.0,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 600
+   },
+   {
+    "id": 10,
+    "cells": 1997,
+    "inscribed_mm": 6.5,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": true,
+    "room": 0.93,
+    "room_depth_mm": 167.7,
+    "at": [
+     95.5,
+     7.8,
+     13.0
+    ],
+    "core_mm": 4.5,
+    "free_cells": 1997,
+    "share_of_drawn": 0.27
+   },
+   {
+    "id": 11,
+    "cells": 415,
+    "inscribed_mm": 4.5,
+    "touches_cut": true,
+    "touches_support": true,
+    "loaded": false,
+    "room": 0.94,
+    "room_depth_mm": 59.8,
+    "at": [
+     95.9,
+     -17.0,
+     3.0
+    ],
+    "core_mm": 3.9,
+    "free_cells": 415
+   }
+  ],
+  "envelope_waste": 0.0,
+  "plate": {
+   "L_mm": 179.4,
+   "W_mm": 85.8,
+   "H_mm": 28.6,
+   "fits": true
+  },
+  "drawn_thin": [],
+  "drawn_walls": [],
+  "cases": 22,
+  "supports": 1,
+  "fails": [],
+  "room_full": {
+   "worst": 0.143,
+   "worst_case": "frame core tie front.1 axial 572 N (pull-out)",
+   "worst_at": [
+    95.8,
+    11.0,
+    5.6
+   ],
+   "budget_share": 0.303,
+   "thinned": 0.47,
+   "max_worst": 0.5
+  }
+ },
+ "early": {
+  "rows": [
+   {
+    "case": "crash 0 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.254,
+    "across": 0.57,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 1 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.041,
+    "across": 0.091,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 2 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.007,
+    "across": 0.005,
+    "at": [
+     55.5,
+     21.4,
+     0.4
+    ]
+   },
+   {
+    "case": "crash 3 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.007,
+    "across": 0.005,
+    "at": [
+     55.5,
+     21.4,
+     0.4
+    ]
+   },
+   {
+    "case": "crash 4 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.157,
+    "across": 0.152,
+    "at": [
+     91.9,
+     17.6,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 5 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.021,
+    "across": 0.048,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 6 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.116,
+    "across": 0.113,
+    "at": [
+     91.9,
+     17.6,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 7 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.023,
+    "across": 0.024,
+    "at": [
+     82.8,
+     3.2,
+     12.1
+    ]
+   },
+   {
+    "case": "crash 8 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.118,
+    "across": 0.115,
+    "at": [
+     91.9,
+     17.6,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 9 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.023,
+    "across": 0.024,
+    "at": [
+     82.8,
+     3.2,
+     12.1
+    ]
+   },
+   {
+    "case": "crash 10 (35 g) + frame ties",
+    "cls": "crash",
+    "inlayer": 0.033,
+    "across": 0.074,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "crash 11 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.012,
+    "across": 0.009,
+    "at": [
+     55.5,
+     21.4,
+     0.4
+    ]
+   },
+   {
+    "case": "crash 12 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.018,
+    "across": 0.011,
+    "at": [
+     55.5,
+     20.2,
+     0.4
+    ]
+   },
+   {
+    "case": "crash 13 (35 g)",
+    "cls": "crash",
+    "inlayer": 0.011,
+    "across": 0.009,
+    "at": [
+     55.5,
+     -21.5,
+     0.4
+    ]
+   },
+   {
+    "case": "flight 4 g",
+    "cls": "flight",
+    "inlayer": 0.008,
+    "across": 0.006,
+    "at": [
+     55.5,
+     20.2,
+     0.4
+    ]
+   },
+   {
+    "case": "flight 2 g x",
+    "cls": "flight",
+    "inlayer": 0.002,
+    "across": 0.002,
+    "at": [
+     -29.0,
+     30.6,
+     5.6
+    ]
+   },
+   {
+    "case": "flight 2 g y",
+    "cls": "flight",
+    "inlayer": 0.003,
+    "across": 0.002,
+    "at": [
+     55.5,
+     -21.5,
+     0.4
+    ]
+   },
+   {
+    "case": "landing 6 g",
+    "cls": "flight",
+    "inlayer": 0.013,
+    "across": 0.03,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "frame core tie front.1 axial 572 N (pull-out)",
+    "cls": "crash",
+    "inlayer": 0.158,
+    "across": 0.279,
+    "at": [
+     93.2,
+     16.2,
+     8.2
+    ]
+   },
+   {
+    "case": "frame core tie front.2 axial 425 N (pull-out)",
+    "cls": "crash",
+    "inlayer": 0.253,
+    "across": 0.243,
+    "at": [
+     99.7,
+     12.3,
+     6.9
+    ]
+   },
+   {
+    "case": "USB plug 20 N into the Pi's aft ports",
+    "cls": "misuse",
+    "inlayer": 0.014,
+    "across": 0.012,
+    "at": [
+     -29.0,
+     -30.6,
+     5.6
+    ]
+   },
+   {
+    "case": "press 50 N on the Pi (assembly)",
+    "cls": "misuse",
+    "inlayer": 0.062,
+    "across": 0.051,
+    "at": [
+     55.5,
+     -20.2,
+     0.4
+    ]
+   }
+  ],
+  "worst": 0.57,
+  "worst_case": "crash 0 (35 g) + frame ties",
+  "worst_at": [
+   99.7,
+   12.3,
+   6.9
+  ],
+  "beta": 4.0,
+  "iteration": 35,
+  "max_worst": 0.5,
+  "k": 3.0
+ },
+ "baseline": null,
+ "total_s": 2301,
+ "part_sha": "312aec8bec55",
+ "lib_sha": "3bca3914ee6f",
+ "setup_sha": "808aca33dd30591b",
+ "max_worst": 0.5,
+ "strength_ok": true
+}
